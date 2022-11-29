@@ -9,11 +9,14 @@ class GameBoard
     @player_two = player_two
   end
   
-  def check_valid_position(position)
+  def check_valid_position(position, player)
     if @@array.include?(position) == true
+      update_position(position, player)
       return true
     else
-      return false
+      puts "The value you entered is not within range. Please try again!"
+      new_position = gets.chomp.to_i
+      check_valid_position(new_position, player)
     end
   end
 
@@ -86,12 +89,9 @@ class GameBoard
       p1_position = gets.chomp.to_i
 
       #CHECK PLAYER 1 VALID MOVE OR NOT
-      if check_valid_position(p1_position) == true
-        update_position(p1_position, @player_one)
+      if check_valid_position(p1_position, @player_one) == true
         display_board()
-      else
-        p1_position = gets.chomp.to_i
-        check_valid_position(p1_position)
+
       end
 
       check_win('X')
@@ -104,12 +104,9 @@ class GameBoard
       p2_position = gets.chomp.to_i
 
       #CHECK PLAYER 1 VALID MOVE OR NOT
-      if check_valid_position(p2_position) == true
-        update_position(p2_position, @player_two)
+      if check_valid_position(p2_position, @player_two) == true
         display_board()
-      else
-        p2_position = gets.chomp.to_i
-        check_valid_position(p1_position)
+
       end
 
       check_win('O')
